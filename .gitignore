@@ -1,0 +1,60 @@
+
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+*~
+*.sw[mnpcod]
+.tmp
+*.tmp
+*.tmp.*
+*.sublime-project
+*.sublime-workspace
+.DS_Store*
+Thumbs.db
+UserInterfaceState.xcuserstate
+$RECYCLE.BIN/
+
+*.log
+log.txt
+npm-debug.log*
+~$*
+
+__pycache__
+
+/.idea
+/.ionic
+/.sass-cache
+/.sourcemaps
+/.versions
+/.vscode/*
+!/.vscode/extensions.json
+/coverage
+/dist
+/node_modules
+/platforms
+/plugins
+/www
+/upload
+/public/upload
+
+# Local environment variables
+.env
+
+dump.rdb
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# files.txt
+tools/filelist-generator/*/files.txt
+tools/filelist-generator/__main-first-popup/.versions.json
+tools/filelist-generator/__main-first-popup/.versions.json
+tools/filelist-generator/headshot-ai/.versions.json

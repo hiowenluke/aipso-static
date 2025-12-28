@@ -1,0 +1,62 @@
+<div class="step-content">
+    <div class="step-product-name">
+        <span>HEADSHOT AI</span>
+    </div>
+    <div class="step-title">
+        Look Exactly Like You<br/>or Money Back
+    </div>
+    <div class="step1-images-cards" id="step1-images-cards">
+        <div class="image-card"><img src="./images-step1/demo-1.webp?v=20251217_194016"></div>
+        <div class="image-card"><img src="./images-step1/demo-2.webp?v=20251217_194016"></div>
+        <div class="image-card"><img src="./images-step1/demo-3.webp?v=20251217_194016"></div>
+        <div class="image-card"><img src="./images-step1/demo-4.webp?v=20251217_194016"></div>
+        <div class="image-card"><img src="./images-step1/demo-5.webp?v=20251217_194016"></div>
+        <div class="image-card"><img src="./images-step1/demo-6.webp?v=20251217_194016"></div>
+        <div class="image-card"><img src="./images-step1/demo-7.webp?v=20251217_194016"></div>
+        <div class="image-card"><img src="./images-step1/demo-8.webp?v=20251217_194016"></div>
+    </div>
+    <div class="step-text-group">
+        <span class="step-highlight">Perfect for LinkedIn, resumes, </span>
+        <span class="step-highlight">and work profiles.</span>
+    </div>
+</div>
+
+<style>
+/* Layout Styles (Theme-Independent) */
+.step1-images-cards {
+    width: 100%;
+    margin-top: -8px;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.step-text-group {
+    clear: both;
+}
+
+.image-card {
+    width: calc(50% - 20px);
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.image-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+}
+
+.loading-placeholder,
+.error-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 14px;
+}
+</style>

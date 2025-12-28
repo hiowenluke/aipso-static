@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>静态资源测试 - Headshot AI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; }
+        
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 { color: #333; font-size: 2rem; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 1rem; }
+        
+        .config-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+        
+        .config-info div { margin: 5px 0; }
+        .config-info strong { color: #667eea; }
+        
+        .status {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .status.error { background: #fee; border-left: 4px solid #e74c3c; }
+        .status.success { background: #efe; border-left: 4px solid #27ae60; }
+        
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .controls label { font-weight: 600; color: #333; }
+        
+        .controls select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .controls select:hover { border-color: #667eea; }
+        .controls select:focus { outline: none; border-color: #667eea; }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .gallery-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .info { padding: 15px; }
+        
+        .info .filename {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .info .meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        .info .category { color: #667eea; font-weight: 500; }
+        
+        .pagination {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        button:active:not(:disabled) { transform: translateY(0); }
+        button:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; }
+        
+        .page-info { font-weight: 600; color: #333; font-size: 1.1rem; }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: white;
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+        }
+        
+        .empty {
+            text-align: center;
+            padding: 60px;
+            background: white;
+            border-radius: 12px;
+            color: #666;
+        }
+        
+        .empty-icon { font-size: 4rem; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖼️ 静态资源测试页面</h1>
+            <p class="subtitle">Headshot AI - 多产品静态资源架构演示</p>
+            
+            <div class="config-info">
+                <div><strong>静态域名:</strong> <span id="configDomain"></span></div>
+                <div><strong>产品 Slug:</strong> <span id="configProduct"></span></div>
+                <div><strong>Manifest URL:</strong> <span id="configManifest"></span></div>
+            </div>
+        </header>
+        
+        <div class="status" id="status">
+            <strong>📊 状态：</strong>初始化中...
+        </div>
+        
+        <div class="controls">
+            <label for="resourceType">📁 资源类型：</label>
+            <select id="resourceType" onchange="changeResourceType()">
+                <option value="home">🏠 首页图片 (Home)</option>
+                <option value="faces">👤 人脸图片 (Faces)</option>
+                <option value="backdrops">🎨 背景图片 (Backdrops)</option>
+                <option value="poses">🧍 姿势图片 (Poses)</option>
+                <option value="outfits">👔 服装图片 (Outfits)</option>
+                <option value="hairstyles">💇 发型图片 (Hairstyles)</option>
+            </select>
+        </div>
+        
+        <div id="gallery" class="gallery"></div>
+        
+        <div id="pagination" class="pagination" style="display: none;"></div>
+    </div>
+
+    <script>
+        // ==================== 配置 ====================
+        const STATIC_DOMAIN = 'http://localhost:8080';
+        const PRODUCT_SLUG = 'headshot-ai';
+        
+        // 显示配置信息
+        document.getElementById('configDomain').textContent = STATIC_DOMAIN;
+        document.getElementById('configProduct').textContent = PRODUCT_SLUG;
+        document.getElementById('configManifest').textContent = `${STATIC_DOMAIN}/${PRODUCT_SLUG}/manifests/`;
+        
+        // ==================== 工具函数 ====================
+        function getImageUrl(path) {
+            // path 示例: "/images/home/City/city-1.webp"
+            return `${STATIC_DOMAIN}/${PRODUCT_SLUG}${path}`;
+        }
+        
+        function getManifestUrl(path) {
+            // path 示例: "index.json" 或 "home-page-1.json"
+            return `${STATIC_DOMAIN}/${PRODUCT_SLUG}/manifests/${path}`;
+        }
+        
+        // ==================== 状态管理 ====================
+        let currentResourceType = 'home';
+        let currentPage = 1;
+        let totalPages = 1;
+        let totalItems = 0;
+        
+        // ==================== 加载资源索引 ====================
+        async function loadResourceIndex(type) {
+            const url = getManifestUrl(`${type}-index.json`);
+            console.log('Loading index:', url);
+            
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            return await response.json();
+        }
+        
+        // ==================== 加载分页数据 ====================
+        async function loadPage(type, page = 1) {
+            const url = getManifestUrl(`${type}-page-${page}.json`);
+            console.log('Loading page:', url);
+            
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            
+            return await response.json();
+        }
+        
+        // ==================== 显示图片 ====================
+        function displayImages(items, type) {
+            const gallery = document.getElementById('gallery');
+            
+            if (!items || items.length === 0) {
+                gallery.innerHTML = `
+                    <div class="empty">
+                        <div class="empty-icon">📭</div>
+                        <div>暂无数据</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            gallery.innerHTML = items.map(item => {
+                if (type === 'backdrops') {
+                    // 背景图片显示第一个模糊级别
+                    const firstBlur = item.blurLevels && item.blurLevels[0];
+                    if (!firstBlur) return '';
+                    
+                    return `
+                        <div class="gallery-item" onclick="window.open('${getImageUrl(firstBlur.path)}', '_blank')">
+                            <img src="${getImageUrl(firstBlur.path)}" alt="${item.name}" loading="lazy">
+                            <div class="info">
+                                <div class="filename">${item.name}</div>
+                                <div class="meta">
+                                    <span class="category">${item.category}</span>
+                                    <span>${item.blurLevels.length} 级模糊</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // 普通图片
+                    return `
+                        <div class="gallery-item" onclick="window.open('${getImageUrl(item.path)}', '_blank')">
+                            <img src="${getImageUrl(item.path)}" alt="${item.filename}" loading="lazy">
+                            <div class="info">
+                                <div class="filename">${item.filename}</div>
+                                <div class="meta">
+                                    <span>${(item.size / 1024).toFixed(1)} KB</span>
+                                    <span>${item.format.toUpperCase()}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
+        }
+        
+        // ==================== 显示分页控件 ====================
+        function displayPagination() {
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            pagination.style.display = 'flex';
+            pagination.innerHTML = `
+                <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                    ← 上一页
+                </button>
+                <span class="page-info">第 ${currentPage} / ${totalPages} 页</span>
+                <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                    下一页 →
+                </button>
+            `;
+        }
+        
+        // ==================== 更新状态信息 ====================
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            const icon = type === 'error' ? '❌' : type === 'success' ? '✅' : '📊';
+            status.innerHTML = `<strong>${icon} 状态：</strong>${message}`;
+            status.className = `status ${type}`;
+        }
+        
+        // ==================== 加载资源 ====================
+        async function loadResources(type, page = 1) {
+            try {
+                updateStatus('加载中...', 'info');
+                document.getElementById('gallery').innerHTML = '<div class="loading">加载中...</div>';
+                
+                // 加载索引信息
+                const index = await loadResourceIndex(type);
+                totalPages = index.pages;
+                totalItems = index.total;
+                
+                // 加载分页数据
+                const pageData = await loadPage(type, page);
+                currentPage = pageData.page;
+                
+                // 显示数据
+                displayImages(pageData.items, type);
+                displayPagination();
+                
+                // 更新状态
+                const resourceName = document.querySelector(`#resourceType option[value="${type}"]`).textContent;
+                updateStatus(
+                    `${resourceName} - 第 ${currentPage}/${totalPages} 页，共 ${totalItems} 项`,
+                    'success'
+                );
+                
+            } catch (error) {
+                console.error('Load error:', error);
+                updateStatus(`加载失败: ${error.message}`, 'error');
+                document.getElementById('gallery').innerHTML = `
+                    <div class="empty">
+                        <div class="empty-icon">⚠️</div>
+                        <div><strong>加载失败</strong></div>
+                        <div style="margin-top: 10px; color: #e74c3c;">${error.message}</div>
+                        <div style="margin-top: 10px; font-size: 0.9rem;">
+                            请确保开发服务器正在运行：<br>
+                            <code style="background: #f5f5f5; padding: 5px 10px; border-radius: 4px; display: inline-block; margin-top: 5px;">
+                                python3 dev_server.py
+                            </code>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // ==================== 切换资源类型 ====================
+        function changeResourceType() {
+            const select = document.getElementById('resourceType');
+            currentResourceType = select.value;
+            currentPage = 1;
+            loadResources(currentResourceType, 1);
+        }
+        
+        // ==================== 跳转页面 ====================
+        function goToPage(page) {
+            if (page >= 1 && page <= totalPages) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                loadResources(currentResourceType, page);
+            }
+        }
+        
+        // ==================== 初始化 ====================
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('='.repeat(60));
+            console.log('静态资源测试页面');
+            console.log('='.repeat(60));
+            console.log('Static Domain:', STATIC_DOMAIN);
+            console.log('Product Slug:', PRODUCT_SLUG);
+            console.log('Manifest URL:', getManifestUrl('index.json'));
+            console.log('='.repeat(60));
+            
+            loadResources(currentResourceType, 1);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+python3 tools/update-html-img-src-with-version/main.py

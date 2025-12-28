@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# 快速启动开发服务器
+
+echo "🚀 启动静态资源服务器..."
+echo ""
+
+# 检查 Python 是否安装
+if ! command -v python3 &> /dev/null; then
+    echo "❌ 错误: 未找到 python3"
+    echo "请先安装 Python 3: https://www.python.org/downloads/"
+    exit 1
+fi
+
+# 启动服务器
+python3 dev_server.py
