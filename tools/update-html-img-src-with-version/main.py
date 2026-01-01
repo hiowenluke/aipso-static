@@ -10,7 +10,7 @@
 
 用法：
 python tools/update-html-img-src-with-version/main.py
-python tools/update-html-img-src-with-version/main.py headshot-ai  # 只处理指定产品
+python tools/update-html-img-src-with-version/main.py business-headshot-ai  # 只处理指定产品
 """
 
 import re

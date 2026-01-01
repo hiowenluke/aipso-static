@@ -9,7 +9,7 @@
 - 全球 CDN 加速访问
 - 无限带宽，零成本
 - 自动 HTTPS
-- 多产品支持（headshot-ai, group-photo-ai 等）
+- 多产品支持（business-headshot-ai, group-photo-ai 等）
 
 ## 📋 为什么选择 Cloudflare Pages？
 
@@ -155,8 +155,8 @@ Cloudflare 会自动检测并提示配置 DNS：
 https://static.aip.so/
 
 # 产品资源
-https://static.aip.so/headshot-ai/images/home/City/city-1.webp
-https://static.aip.so/headshot-ai/images/options/backdrops/...
+https://static.aip.so/business-headshot-ai/images/home/City/city-1.webp
+https://static.aip.so/business-headshot-ai/images/options/backdrops/...
 
 # 其他产品
 https://static.aip.so/group-photo-ai/images/...
@@ -169,7 +169,7 @@ https://static.aip.so/fashion-shot-ai/images/...
 
 ```
 static/
-├── headshot-ai/
+├── business-headshot-ai/
 │   └── images/
 │       ├── home/
 │       ├── demo-faces/
@@ -194,7 +194,7 @@ static/
 curl -I https://static.aip.so
 
 # 测试图片访问
-curl -I https://static.aip.so/headshot-ai/images/home/City/city-1.webp
+curl -I https://static.aip.so/business-headshot-ai/images/home/City/city-1.webp
 
 # 应该返回 200 OK
 ```
@@ -202,7 +202,7 @@ curl -I https://static.aip.so/headshot-ai/images/home/City/city-1.webp
 ### 2. 浏览器测试
 
 ```
-1. 访问 https://static.aip.so/headshot-ai/images/home/City/city-1.webp
+1. 访问 https://static.aip.so/business-headshot-ai/images/home/City/city-1.webp
 2. 应该显示图片 ✅
 3. 检查 HTTPS 证书（应该是绿色锁） ✅
 ```
@@ -211,7 +211,7 @@ curl -I https://static.aip.so/headshot-ai/images/home/City/city-1.webp
 
 ```bash
 # 测试响应时间
-curl -w "@curl-format.txt" -o /dev/null -s https://static.aip.so/headshot-ai/images/home/City/city-1.webp
+curl -w "@curl-format.txt" -o /dev/null -s https://static.aip.so/business-headshot-ai/images/home/City/city-1.webp
 
 # 或使用在线工具
 # https://tools.pingdom.com/
@@ -222,7 +222,7 @@ curl -w "@curl-format.txt" -o /dev/null -s https://static.aip.so/headshot-ai/ima
 
 ```bash
 # 检查 CDN 节点
-curl -I https://static.aip.so/headshot-ai/images/home/City/city-1.webp | grep -i cf-ray
+curl -I https://static.aip.so/business-headshot-ai/images/home/City/city-1.webp | grep -i cf-ray
 
 # 应该看到 CF-RAY 头，表示通过 Cloudflare CDN
 ```
@@ -235,10 +235,10 @@ curl -I https://static.aip.so/headshot-ai/images/home/City/city-1.webp | grep -i
 
 ```bash
 # 1. 添加新图片
-cp new-image.webp static/headshot-ai/images/home/City/
+cp new-image.webp static/business-headshot-ai/images/home/City/
 
 # 2. 提交到 Git
-git add static/headshot-ai/images/
+git add static/business-headshot-ai/images/
 git commit -m "Add new images"
 git push origin main
 
@@ -412,7 +412,7 @@ Build output directory: dist
 **解决方案**:
 ```bash
 # 1. 检查文件路径
-ls -la static/headshot-ai/images/home/City/
+ls -la static/business-headshot-ai/images/home/City/
 
 # 2. 检查文件名大小写
 # Cloudflare 区分大小写
@@ -498,7 +498,7 @@ cwebp -q 80 input.jpg -o output.webp
 
 ```
 static/
-├── headshot-ai/
+├── business-headshot-ai/
 │   └── images/          # 只包含图片
 │       ├── home/
 │       ├── demo-faces/
@@ -534,7 +534,7 @@ git push origin v1.0.0
 
 ```bash
 # 1. 添加新图片
-cp new-images/* static/headshot-ai/images/home/City/
+cp new-images/* static/business-headshot-ai/images/home/City/
 
 # 2. 提交到 Git
 git add static/
@@ -544,14 +544,14 @@ git push origin main
 # 3. Cloudflare 自动部署（1-2 分钟）
 
 # 4. 验证
-curl -I https://static.aip.so/headshot-ai/images/home/City/new-image.webp
+curl -I https://static.aip.so/business-headshot-ai/images/home/City/new-image.webp
 ```
 
 ### 批量更新
 
 ```bash
 # 1. 批量添加图片
-cp -r batch-images/* static/headshot-ai/images/
+cp -r batch-images/* static/business-headshot-ai/images/
 
 # 2. 提交
 git add static/
@@ -611,7 +611,7 @@ git push origin main
 # 5. 等待生效（5-30 分钟）
 
 # 6. 测试
-curl -I https://static.aip.so/headshot-ai/images/home/City/city-1.webp
+curl -I https://static.aip.so/business-headshot-ai/images/home/City/city-1.webp
 
 # 完成！🎉
 ```
@@ -625,11 +625,11 @@ curl -I https://static.aip.so/headshot-ai/images/home/City/city-1.webp
 const STATIC_CONFIG = {
   development: {
     domain: 'http://localhost:8080',
-    product: 'headshot-ai'
+    product: 'business-headshot-ai'
   },
   production: {
     domain: 'https://static.aip.so',  // ← 更新为 Cloudflare 域名
-    product: 'headshot-ai'
+    product: 'business-headshot-ai'
   }
 };
 

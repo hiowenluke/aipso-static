@@ -37,7 +37,7 @@ tools/
 **使用**：
 ```bash
 # 生成文件列表
-./generate-filelist.sh headshot-ai
+./generate-filelist.sh business-headshot-ai
 
 # 查看文档
 cat tools/filelist-generator/README.md
@@ -89,7 +89,7 @@ cat tools/create-backdrops-blur-image/README.md
 
 ```bash
 # 1. 生成文件列表
-./generate-filelist.sh headshot-ai
+./generate-filelist.sh business-headshot-ai
 
 # 2. 启动静态文件服务器
 python3 dev_server.py &

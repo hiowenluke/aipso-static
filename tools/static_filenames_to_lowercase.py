@@ -17,8 +17,8 @@
 用法：
 python tools/static_filenames_to_lowercase.py                    # 预览模式
 python tools/static_filenames_to_lowercase.py --apply            # 实际执行
-python tools/static_filenames_to_lowercase.py headshot-ai        # 只处理指定产品
-python tools/static_filenames_to_lowercase.py headshot-ai --apply
+python tools/static_filenames_to_lowercase.py business-headshot-ai        # 只处理指定产品
+python tools/static_filenames_to_lowercase.py business-headshot-ai --apply
 """
 
 import sys

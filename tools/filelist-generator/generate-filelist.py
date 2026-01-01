@@ -50,7 +50,7 @@ def generate_filelist(product_slug: str, output_format: str = 'txt', enable_vers
     生成产品的文件列表
     
     Args:
-        product_slug: 产品 slug，如 'headshot-ai'
+        product_slug: 产品 slug，如 'business-headshot-ai'
         output_format: 输出格式，'txt' 或 'json'
         enable_version: 是否启用版本号
     """

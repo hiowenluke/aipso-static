@@ -16,7 +16,7 @@ class FileListParser:
         初始化解析器
         
         Args:
-            filelist_path: 文件列表路径，如 'tools/filelist-generator/headshot-ai/files.txt'
+            filelist_path: 文件列表路径，如 'tools/filelist-generator/business-headshot-ai/files.txt'
         """
         self.filelist_path = Path(filelist_path)
         self._files: List[str] = []
@@ -256,7 +256,7 @@ def example_usage():
     """使用示例"""
     
     # 初始化解析器
-    parser = FileListParser('tools/filelist-generator/headshot-ai/files.txt')
+    parser = FileListParser('tools/filelist-generator/business-headshot-ai/files.txt')
     
     print("=" * 60)
     print("文件列表解析器 - 使用示例")

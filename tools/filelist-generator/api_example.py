@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 # 配置
 STORE_ROOT = Path(__file__).parent.parent.parent / 'static'
-PRODUCT_SLUG = 'headshot-ai'
+PRODUCT_SLUG = 'business-headshot-ai'
 FILELIST_PATH = Path(__file__).parent / PRODUCT_SLUG / 'files.txt'
 
 # 初始化解析器
@@ -21,7 +21,7 @@ try:
     print(f"✅ 文件列表加载成功: {parser.get_total_count()} 个文件")
 except FileNotFoundError:
     print(f"❌ 文件列表不存在: {FILELIST_PATH}")
-    print("请先运行: ./generate-filelist.sh headshot-ai")
+    print("请先运行: ./generate-filelist.sh business-headshot-ai")
     parser = None
 
 
@@ -261,7 +261,7 @@ def serve_file(product, file_path):
     提供静态文件服务
     
     Example:
-        GET /headshot-ai/images/home/City/city-1.webp
+        GET /business-headshot-ai/images/home/City/city-1.webp
     """
     if product != PRODUCT_SLUG:
         return jsonify({'error': 'Product not found'}), 404

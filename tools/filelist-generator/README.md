@@ -40,16 +40,16 @@ images/options/backdrops/1@Studio/Dark-Gradients/blur-0.webp
 python3 tools/generate-filelist.py
 
 # 生成指定产品的文件列表
-python3 tools/generate-filelist.py headshot-ai
+python3 tools/generate-filelist.py business-headshot-ai
 
 # 生成 JSON 格式
-python3 tools/generate-filelist.py headshot-ai json
+python3 tools/generate-filelist.py business-headshot-ai json
 ```
 
 #### 输出位置
 
 ```
-tools/filelist-generator/headshot-ai/files.txt
+tools/filelist-generator/business-headshot-ai/files.txt
 ```
 
 #### 特性
@@ -69,7 +69,7 @@ tools/filelist-generator/headshot-ai/files.txt
 from tools.filelist_parser import FileListParser
 
 # 初始化解析器
-parser = FileListParser('tools/filelist-generator/headshot-ai/files.txt')
+parser = FileListParser('tools/filelist-generator/business-headshot-ai/files.txt')
 
 # 获取总数
 total = parser.get_total_count()
@@ -193,7 +193,7 @@ from tools.filelist_parser import FileListParser
 app = Flask(__name__)
 
 # 初始化解析器
-parser = FileListParser('tools/filelist-generator/headshot-ai/files.txt')
+parser = FileListParser('tools/filelist-generator/business-headshot-ai/files.txt')
 
 @app.route('/api/files')
 def get_files():
@@ -240,7 +240,7 @@ from tools.filelist_parser import FileListParser
 app = FastAPI()
 
 # 初始化解析器
-parser = FileListParser('tools/filelist-generator/headshot-ai/files.txt')
+parser = FileListParser('tools/filelist-generator/business-headshot-ai/files.txt')
 
 @app.get("/api/files")
 def get_files(page: int = Query(1, ge=1), page_size: int = Query(20, ge=1, le=100)):
@@ -302,11 +302,11 @@ files2 = parser.filter_by_prefix('images/home/')  # 更快！
 ### 开发阶段
 
 ```bash
-# 1. 添加新图片到 static/headshot-ai/images/
-cp new-image.webp static/headshot-ai/images/home/City/
+# 1. 添加新图片到 static/business-headshot-ai/images/
+cp new-image.webp static/business-headshot-ai/images/home/City/
 
 # 2. 重新生成文件列表
-python3 tools/generate-filelist.py headshot-ai
+python3 tools/generate-filelist.py business-headshot-ai
 
 # 3. 测试
 python3 tools/filelist_parser.py
@@ -316,16 +316,16 @@ python3 tools/filelist_parser.py
 
 ```bash
 # 1. 在本地完成测试
-python3 tools/generate-filelist.py headshot-ai
+python3 tools/generate-filelist.py business-headshot-ai
 
 # 2. 上传到 S3
-aws s3 sync static/headshot-ai/ s3://your-bucket/headshot-ai/ \
+aws s3 sync static/business-headshot-ai/ s3://your-bucket/business-headshot-ai/ \
   --exclude "*" \
   --include "images/*" \
   --include "files.txt"
 
 # 3. Server 端从 S3 下载文件列表
-aws s3 cp s3://your-bucket/headshot-ai/files.txt ./
+aws s3 cp s3://your-bucket/business-headshot-ai/files.txt ./
 
 # 4. Server 端使用解析器
 parser = FileListParser('./files.txt')
@@ -355,14 +355,14 @@ A: 元数据应该由 server 端动态获取，这样更灵活：
 
 A: 重新生成文件列表即可：
 ```bash
-python3 tools/generate-filelist.py headshot-ai
+python3 tools/generate-filelist.py business-headshot-ai
 ```
 
 ### Q: 支持多产品吗？
 
 A: 支持！每个产品有独立的文件列表：
 ```
-tools/filelist-generator/headshot-ai/files.txt
+tools/filelist-generator/business-headshot-ai/files.txt
 static/group-photo-ai/files.txt
 static/fashion-shot-ai/files.txt
 ```
@@ -373,7 +373,7 @@ A: 使用 Python 的 `os.stat()` 或 `pathlib.Path.stat()`：
 ```python
 from pathlib import Path
 
-file_path = Path('static/headshot-ai') / 'images/home/city-1.webp'
+file_path = Path('static/business-headshot-ai') / 'images/home/city-1.webp'
 stat = file_path.stat()
 
 metadata = {

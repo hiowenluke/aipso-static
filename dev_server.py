@@ -17,7 +17,7 @@ STORE_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
 
 # 产品配置（子域名到产品slug的映射）
 PRODUCT_MAPPING = {
-    'headshot': 'headshot-ai',
+    'headshot': 'business-headshot-ai',
     'groupphoto': 'group-photo-ai',
     'fashionshot': 'fashion-shot-ai',
 }
@@ -181,7 +181,7 @@ def main():
     print()
     print("🔗 访问方式:")
     print(f"   1. 子域名: http://headshot.localhost:{PORT}/images/home/...")
-    print(f"   2. 路径:   http://localhost:{PORT}/headshot-ai/images/home/...")
+    print(f"   2. 路径:   http://localhost:{PORT}/business-headshot-ai/images/home/...")
     print()
     print("💡 提示:")
     print("   • 使用 Ctrl+C 停止服务器")

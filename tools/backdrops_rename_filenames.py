@@ -1,5 +1,5 @@
 """
-1. 读取输入文件夹"static/headshot-ai/images/options/backdrops"。
+1. 读取输入文件夹"static/business-headshot-ai/images/options/backdrops"。
 2. 遍历其下第一级子文件夹。
   - 遍历再下一级子文件夹，将名字中"@"及后面的字符串删除。
 
@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 
-def rename_folders(base_path="static/headshot-ai/images/options/backdrops"):
+def rename_folders(base_path="static/business-headshot-ai/images/options/backdrops"):
     """重命名文件夹，删除 @ 及后面的字符串"""
     base_dir = Path(base_path)
     
@@ -66,5 +66,5 @@ if __name__ == "__main__":
         print(f"使用自定义路径: {custom_path}")
         rename_folders(custom_path)
     else:
-        print("使用默认路径: static/headshot-ai/images/options/backdrops")
+        print("使用默认路径: static/business-headshot-ai/images/options/backdrops")
         rename_folders()

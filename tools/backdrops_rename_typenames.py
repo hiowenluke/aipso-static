@@ -1,5 +1,5 @@
 """
-读取文件夹"static/headshot-ai/images/options/backdrops/"：
+读取文件夹"static/business-headshot-ai/images/options/backdrops/"：
 - 将 "03@studio-blue" 重命名为 "02@studio-blue"
 - 将 "02@studio-gray" 重命名为 "03@studio-gray"
 
@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 
-def rename_type_folders(base_path="static/headshot-ai/images/options/backdrops"):
+def rename_type_folders(base_path="static/business-headshot-ai/images/options/backdrops"):
     """重命名特定的类型文件夹"""
     base_dir = Path(base_path)
     
@@ -83,5 +83,5 @@ if __name__ == "__main__":
         print(f"使用自定义路径: {custom_path}")
         rename_type_folders(custom_path)
     else:
-        print("使用默认路径: static/headshot-ai/images/options/backdrops")
+        print("使用默认路径: static/business-headshot-ai/images/options/backdrops")
         rename_type_folders()

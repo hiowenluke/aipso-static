@@ -9,9 +9,9 @@
 ### 1. 文件列表生成器
 ```bash
 # 生成文件列表
-./generate-filelist.sh headshot-ai
+./generate-filelist.sh business-headshot-ai
 
-# 输出: tools/filelist-generator/headshot-ai/files.txt
+# 输出: tools/filelist-generator/business-headshot-ai/files.txt
 ```
 
 **特点**：
@@ -23,7 +23,7 @@
 ```python
 from tools.filelist_parser import FileListParser
 
-parser = FileListParser('tools/filelist-generator/headshot-ai/files.txt')
+parser = FileListParser('tools/filelist-generator/business-headshot-ai/files.txt')
 
 # 分页
 page_data = parser.get_page(page=1, page_size=20)
@@ -63,12 +63,12 @@ python3 tools/api_example.py
 ### 步骤 1: 生成文件列表
 
 ```bash
-./generate-filelist.sh headshot-ai
+./generate-filelist.sh business-headshot-ai
 ```
 
 输出：
 ```
-✅ 已生成文件列表: tools/filelist-generator/headshot-ai/files.txt
+✅ 已生成文件列表: tools/filelist-generator/business-headshot-ai/files.txt
 📊 总计 953 个文件
 💾 文件大小: 49.21 KB
 ```
@@ -93,7 +93,7 @@ python3 tools/filelist_parser.py
 # 在你的 Flask/FastAPI 项目中
 from tools.filelist_parser import FileListParser
 
-parser = FileListParser('tools/filelist-generator/headshot-ai/files.txt')
+parser = FileListParser('tools/filelist-generator/business-headshot-ai/files.txt')
 
 @app.route('/api/images')
 def get_images():
@@ -131,7 +131,7 @@ images/options/backdrops/1@Studio/Dark-Gradients/blur-0.webp
   "items": [
     {
       "path": "images/home/City/city-1.webp",
-      "url": "http://localhost:8080/headshot-ai/images/home/City/city-1.webp"
+      "url": "http://localhost:8080/business-headshot-ai/images/home/City/city-1.webp"
     }
   ]
 }
@@ -154,11 +154,11 @@ images/options/backdrops/1@Studio/Dark-Gradients/blur-0.webp
 ### 添加新图片后更新列表
 
 ```bash
-# 1. 添加图片到 static/headshot-ai/images/
-cp new-image.webp static/headshot-ai/images/home/City/
+# 1. 添加图片到 static/business-headshot-ai/images/
+cp new-image.webp static/business-headshot-ai/images/home/City/
 
 # 2. 重新生成文件列表
-./generate-filelist.sh headshot-ai
+./generate-filelist.sh business-headshot-ai
 
 # 3. 重启 server（如果需要）
 ```
@@ -167,23 +167,23 @@ cp new-image.webp static/headshot-ai/images/home/City/
 
 ```bash
 # 总文件数
-wc -l tools/filelist-generator/headshot-ai/files.txt
+wc -l tools/filelist-generator/business-headshot-ai/files.txt
 
 # 查看前 10 个文件
-head -10 tools/filelist-generator/headshot-ai/files.txt
+head -10 tools/filelist-generator/business-headshot-ai/files.txt
 
 # 搜索特定文件
-grep "blur" tools/filelist-generator/headshot-ai/files.txt
+grep "blur" tools/filelist-generator/business-headshot-ai/files.txt
 ```
 
 ### 对比两个版本的差异
 
 ```bash
 # 使用 git diff
-git diff tools/filelist-generator/headshot-ai/files.txt
+git diff tools/filelist-generator/business-headshot-ai/files.txt
 
 # 或使用 diff 命令
-diff old-files.txt tools/filelist-generator/headshot-ai/files.txt
+diff old-files.txt tools/filelist-generator/business-headshot-ai/files.txt
 ```
 
 ## 🎨 使用场景
@@ -198,7 +198,7 @@ python3 dev_server.py
 python3 tools/api_example.py
 
 # 3. 前端访问
-# - 静态文件: http://localhost:8080/headshot-ai/images/...
+# - 静态文件: http://localhost:8080/business-headshot-ai/images/...
 # - API: http://localhost:5000/api/files
 ```
 
@@ -219,13 +219,13 @@ scp -r static/ user@test-server:/var/www/
 
 ```bash
 # 1. 本地测试完成后，上传到 S3
-aws s3 sync static/headshot-ai/images/ s3://bucket/headshot-ai/images/
+aws s3 sync static/business-headshot-ai/images/ s3://bucket/business-headshot-ai/images/
 
 # 2. 上传文件列表
-aws s3 cp tools/filelist-generator/headshot-ai/files.txt s3://bucket/headshot-ai/
+aws s3 cp tools/filelist-generator/business-headshot-ai/files.txt s3://bucket/business-headshot-ai/
 
 # 3. Server 端从 S3 下载文件列表
-aws s3 cp s3://bucket/headshot-ai/files.txt ./
+aws s3 cp s3://bucket/business-headshot-ai/files.txt ./
 
 # 4. 使用解析器提供 API
 parser = FileListParser('./files.txt')
@@ -295,10 +295,10 @@ files = parser.filter_by_prefix('images/home/')  # 使用缓存
 
 ```bash
 # 使用 inotify 监控文件变化
-inotifywait -m static/headshot-ai/images/ -e create,delete,modify |
+inotifywait -m static/business-headshot-ai/images/ -e create,delete,modify |
 while read path action file; do
     echo "检测到变化: $action $file"
-    ./generate-filelist.sh headshot-ai
+    ./generate-filelist.sh business-headshot-ai
 done
 ```
 

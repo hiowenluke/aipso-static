@@ -57,4 +57,4 @@ __pycache__/
 tools/filelist-generator/*/files.txt
 tools/filelist-generator/__main-first-popup/.versions.json
 tools/filelist-generator/__main-first-popup/.versions.json
-tools/filelist-generator/headshot-ai/.versions.json
+tools/filelist-generator/business-headshot-ai/.versions.json

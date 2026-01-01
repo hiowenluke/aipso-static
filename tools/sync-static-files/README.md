@@ -35,13 +35,13 @@ python3 tools/sync-static-files/watch-and-sync.py
    ↓
 2. 检测到图片文件变化
    ↓
-3. 判断产品 (如 headshot-ai)
+3. 判断产品 (如 business-headshot-ai)
    ↓
 4. 生成文件列表
-   tools/filelist-generator/headshot-ai/files.txt
+   tools/filelist-generator/business-headshot-ai/files.txt
    ↓
 5. 同步到 server 端
-   /path/to/aipso-server/static/headshot-ai/files.txt
+   /path/to/aipso-server/static/business-headshot-ai/files.txt
 ```
 
 ## 🎬 示例
@@ -74,11 +74,11 @@ $ ./start-watch.sh
 
 ```bash
 # 在另一个终端添加文件
-$ cp new-image.webp static/headshot-ai/images/home/City/
+$ cp new-image.webp static/business-headshot-ai/images/home/City/
 
 # 监视工具自动输出：
 ============================================================
-📁 检测到变化: headshot-ai
+📁 检测到变化: business-headshot-ai
    事件类型: created
    文件: new-image.webp
 ============================================================
@@ -90,12 +90,12 @@ $ cp new-image.webp static/headshot-ai/images/home/City/
 
 🔄 步骤 2: 同步到 server 端...
 ✅ 同步成功
-   源: tools/filelist-generator/headshot-ai/files.txt
-   目标: /path/to/aipso-server/static/headshot-ai/files.txt
+   源: tools/filelist-generator/business-headshot-ai/files.txt
+   目标: /path/to/aipso-server/static/business-headshot-ai/files.txt
    大小: 54.38 KB
 
 ============================================================
-✅ 处理完成: headshot-ai
+✅ 处理完成: business-headshot-ai
 ============================================================
 ```
 
@@ -182,10 +182,10 @@ pip3 install watchdog
 **解决方法**：
 ```bash
 # 检查目标目录权限
-ls -ld /path/to/aipso-server/static/headshot-ai/
+ls -ld /path/to/aipso-server/static/business-headshot-ai/
 
 # 如果需要，修改权限
-chmod 755 /path/to/aipso-server/static/headshot-ai/
+chmod 755 /path/to/aipso-server/static/business-headshot-ai/
 ```
 
 ## 🎯 使用场景
@@ -204,7 +204,7 @@ cd ../aipso-server
 npm run dev
 
 # 现在添加图片会自动同步到 server 端
-cp new-image.webp static/headshot-ai/images/home/City/
+cp new-image.webp static/business-headshot-ai/images/home/City/
 ```
 
 ### 场景 2: 批量导入图片
@@ -214,7 +214,7 @@ cp new-image.webp static/headshot-ai/images/home/City/
 ./start-watch.sh
 
 # 批量复制图片（会自动触发一次处理）
-cp -r new-images/* static/headshot-ai/images/home/City/
+cp -r new-images/* static/business-headshot-ai/images/home/City/
 ```
 
 ### 场景 3: 测试环境
